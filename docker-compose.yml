@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Service pour le backend (Nest.js)
+  backend:
+    image: node:16
+    container_name: backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=""
+      - DB_NAME=project
+    command: npm start
+    depends_on:
+      - mariadb
+
+  # Service pour le frontend (React.js)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:3000
+
+  # Service pour la base de données MariaDB
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: project
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mariadb_data:

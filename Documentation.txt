@@ -1,0 +1,12 @@
+Choix Techniques
+a. Technologies utilisées
+
+    Backend : Node.js avec Nest.js. Utilisation de sessions côté serveur pour gérer l'authentification des utilisateurs.
+    Frontend : React pour une interface utilisateur dynamique.
+    Base de données : MariaDB, utilisée pour stocker les informations des utilisateurs et les autres données.
+    Sessions : Les sessions sont gérées côté serveur avec express-session pour stocker l'identifiant de session dans un cookie sécurisé.
+
+b. Architecture de l’application
+
+    Backend : Le backend est une API RESTful construite avec Nest.js. Chaque route nécessitant une authentification est protégée par un middleware de vérification de session.
+    Frontend : L'interface utilisateur est construite avec React et communique avec l'API via des requêtes HTTP (fetch ou axios).
